@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { Stock } from './stock';
+import { Header } from './header';
 
 export interface ChartProps {
   stocks: string[];
@@ -8,42 +9,16 @@ export interface ChartProps {
   onRemoveStock: (stock: string) => void;
 }
 
-export const Chart = ({ stocks, onAddStock, onRemoveStock}: ChartProps, newStock: HTMLInputElement) => (
+export const Chart = ({ stocks, onAddStock, onRemoveStock}: ChartProps, stockToAdd: HTMLInputElement) => (
   <div>
-    <form
-      className="jumbotron form-inline"
-      onSubmit={(event) => {
-          event.preventDefault();
-          if (newStock.value !== '') {
-            onAddStock(newStock.value);
-            newStock.value = '';
-          } else {
-            // TODO: create form validation error
-          }
-      }}
-    >
-      <div className="form-group">
-        <label htmlFor="stockadd">Stock to Add</label>
-        <input
-          className="form-control"
-          name="stockadd"
-          ref={node => (
-              newStock = node as HTMLInputElement
-          )}
-        />
-      </div>
-      <button
-        type="submit"
-        className="btn btn-success"
-      >
-        Add Stock
-      </button>
-    </form>
-    <ul className="list-group">
-      {stocks.map((name: string, id: number) => (
-          <Stock key={id} {...{name, id, onRemoveStock}} />
-      ))}
-    </ul>
+    <Header {...{stockToAdd, onAddStock}}/>
+    <div className="container">
+      <ul className="list-group col-sm-6">
+        {stocks.map((name: string, id: number) => (
+            <Stock key={id} {...{name, id, onRemoveStock}} />
+        ))}
+      </ul>
+    </div>
   </div>
 );
 

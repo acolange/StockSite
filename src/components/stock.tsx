@@ -7,11 +7,11 @@ export interface StockProps {
 }
 
 export const Stock = ({name, id, onRemoveStock}: StockProps) => (
-    <li className="list-group-item">
+    <li className="list-group-item text-uppercase">
         <strong>{id + 1}.</strong> {name}
         <span 
             onClick={(event) => onRemoveStock(name)} 
-            className="glyphicon glyphicon-remove"
+            className="glyphicon glyphicon-remove btn"
         />
     </li>
 );
